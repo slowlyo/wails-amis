@@ -12,6 +12,6 @@
 ## Notes
 
 - Due to the fact that the amis SDK does not require compilation, the `wails dev` command is not applicable.
-    - Instead, you can launch a file server to preview the frontend by running `go run dev.go`.
+    - Instead, you can launch a file server to preview the frontend by running `go run dev.go` in the `frontend` directory.
 - When performing a `wails build`, it is necessary to bypass the frontend compilation phase.
     - To do this, execute: `wails build -s`.

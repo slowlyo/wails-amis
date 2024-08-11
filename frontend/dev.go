@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("frontend/dist/"))
+	fs := http.FileServer(http.Dir("dist/"))
 
 	http.Handle("/", fs)
 
