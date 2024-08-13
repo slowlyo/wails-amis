@@ -8,12 +8,14 @@ import (
 )
 
 type Backend struct {
-	Gin *gin.Engine
+	Gin  *gin.Engine
+	Port string
 }
 
 func NewBackend() *Backend {
 	return &Backend{
-		Gin: gin.New(),
+		Gin:  gin.New(),
+		Port: ":32001",
 	}
 }
 
@@ -22,14 +24,14 @@ func (b *Backend) HttpHandler() *gin.Engine {
 }
 
 func (b *Backend) Startup(ctx context.Context) {
-	b.registerRouter()
+	b.RegisterRouter()
 
-	if err := b.Gin.Run(":32001"); err != nil {
+	if err := b.Gin.Run(b.Port); err != nil {
 		panic(err)
 	}
 }
 
-func (b *Backend) registerRouter() {
+func (b *Backend) RegisterRouter() {
 	api := b.Gin.Group("/api")
 	{
 		api.GET("/ping", func(c *gin.Context) {

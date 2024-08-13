@@ -1,18 +1,28 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
+	"wails-amis/backend"
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("dist/"))
+	app := backend.NewBackend()
 
-	http.Handle("/", fs)
+	app.RegisterRouter()
 
-	fmt.Println("http://localhost:8090")
+	app.Gin.StaticFS("/public", gin.Dir("./dist/public", false))
+	app.Gin.StaticFS("/pages", gin.Dir("./dist/pages", false))
+	app.Gin.NoRoute(func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.URL.Path, "/api/") {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Not found"})
+			return
+		}
+		c.File("./dist/index.html")
+	})
 
-	if err := http.ListenAndServe(":8090", nil); err != nil {
+	if err := app.Gin.Run(app.Port); err != nil {
 		panic(err)
 	}
 }
