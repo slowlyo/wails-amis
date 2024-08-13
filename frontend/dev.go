@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -21,6 +22,8 @@ func main() {
 		}
 		c.File("./dist/index.html")
 	})
+
+	fmt.Println("Server started on: http://localhost" + app.Port)
 
 	if err := app.Gin.Run(app.Port); err != nil {
 		panic(err)
