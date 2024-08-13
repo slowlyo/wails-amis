@@ -10,7 +10,9 @@ func main() {
 
 	http.Handle("/", fs)
 
-	fmt.Println("http://localhost:8080")
+	fmt.Println("http://localhost:8090")
 
-	_ = http.ListenAndServe(":8080", nil)
+	if err := http.ListenAndServe(":8090", nil); err != nil {
+		panic(err)
+	}
 }
