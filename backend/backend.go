@@ -3,8 +3,9 @@ package backend
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	"wails-amis/backend/pkg/db"
+	"wails-amis/backend/pkg/response"
 	"wails-amis/backend/services"
-	"wails-amis/backend/utils/response"
 )
 
 type Backend struct {
@@ -24,6 +25,8 @@ func (b *Backend) HttpHandler() *gin.Engine {
 }
 
 func (b *Backend) Startup(ctx context.Context) {
+	db.Connect()
+
 	b.RegisterRouter()
 
 	if err := b.Gin.Run(b.Port); err != nil {

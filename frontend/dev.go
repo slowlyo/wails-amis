@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"strings"
 	"wails-amis/backend"
+	"wails-amis/backend/pkg/db"
 )
 
 func main() {
 	app := backend.NewBackend()
 
+	db.Connect()
 	app.RegisterRouter()
 
 	app.Gin.StaticFS("/public", gin.Dir("./dist/public", false))
