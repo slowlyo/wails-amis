@@ -43,6 +43,5 @@ func (b *Backend) RegisterRouter() {
 
 		hello := services.HelloService{}
 		api.GET("/hello", hello.Index)
-		api.Group("/api")
 	}
 }
