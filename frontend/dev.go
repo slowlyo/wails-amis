@@ -27,7 +27,5 @@ func main() {
 
 	fmt.Println("Server started on: http://localhost" + app.Port)
 
-	if err := app.Gin.Run(app.Port); err != nil {
-		panic(err)
-	}
+	app.Run()
 }
